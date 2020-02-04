@@ -205,5 +205,25 @@ class GameAITests: XCTestCase {
             // if it is not full, then return false (it is  not a complete game, so no cat)
         // if there is not a winner and the game board is full, then return true (it is a cat)
         
+        // I believe I tested in this in the incomplete game tests above.
+        
+         var board = GameBoard()
+         try! board.place(mark: .x, on: (0, 0))
+         try! board.place(mark: .o, on: (0, 1))
+         try! board.place(mark: .x, on: (1, 0))
+         try! board.place(mark: .o, on: (1, 1))
+         try! board.place(mark: .x, on: (1, 2))
+         try! board.place(mark: .o, on: (2, 0))
+         XCTAssertFalse(game(board: board, isWonBy: .o))
+         XCTAssertFalse(game(board: board, isWonBy: .x))
+         XCTAssertFalse(board.isFull)
+         
+         try! board.place(mark: .x, on: (0, 2))
+         try! board.place(mark: .o, on: (2, 2))
+         try! board.place(mark: .x, on: (2, 1))
+
+         XCTAssertFalse(game(board: board, isWonBy: .o))
+         XCTAssertFalse(game(board: board, isWonBy: .x))
+         XCTAssertTrue(board.isFull)
     }
 }
