@@ -143,8 +143,35 @@ class GameAITests: XCTestCase {
     }
     
     func testIncompleteGame() {
+        // check to see if there is a winner
+            // if there is a winner, then return false (the game is complete)
+        // check to see if the game board is full
+            // if the board is full, then return false (the game is complete)
+        // if neither is true, then return true (the game is incomplete)
+        
+        // Or, just test the isFull property to make sure it works.
+        var board = GameBoard()
+        try! board.place(mark: .x, on: (0, 0))
+        try! board.place(mark: .o, on: (0, 1))
+        try! board.place(mark: .x, on: (1, 0))
+        try! board.place(mark: .o, on: (1, 1))
+        try! board.place(mark: .x, on: (1, 2))
+        try! board.place(mark: .o, on: (2, 0))
+        XCTAssertFalse(board.isFull)
+        
+        try! board.place(mark: .x, on: (0, 2))
+        try! board.place(mark: .o, on: (2, 2))
+        try! board.place(mark: .x, on: (2, 1))
+        XCTAssertTrue(board.isFull)
+        
     }
 
     func testCatsGame() {
+        // check to see if there is a winner
+            // if there is a winner, then return false (it is not a cat)
+        // check to see if the game board is full
+            // if it is not full, then return false (it is  not a complete game, so no cat)
+        // if there is not a winner and the game board is full, then return true (it is a cat)
+        
     }
 }

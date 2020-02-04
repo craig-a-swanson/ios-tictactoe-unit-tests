@@ -30,6 +30,11 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
         }
         
         do {
+            // if the game is active, let the player put down their mark
+            // after the mark is down, check to see if that player won the game
+            // if they did not win the game, check to see if the board is full (cat result)
+            // otherwise, switch to the next player
+            
             try board.place(mark: player, on: coordinate)
             if game(board: board, isWonBy: player) {
                 gameState = .won(player)
