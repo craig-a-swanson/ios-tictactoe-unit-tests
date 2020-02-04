@@ -24,11 +24,17 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
     // MARK: - BoardViewControllerDelegate
     
     func boardViewController(_ boardViewController: BoardViewController, markWasMadeAt coordinate: Coordinate) {
+        
+        // 1. checking if the game is active.
+        // 2. if the game is active, extract the gamboard.mark into 'let activeMark'.
+        // 'activeMark' may be .x or it may be .o
         guard case let GameState.active(player) = gameState else {
             NSLog("Game is over")
             return
         }
         
+        // game is active
+        // 'activeMark' is either .x or .o
         do {
             try board.place(mark: player, on: coordinate)
             if game(board: board, isWonBy: player) {
@@ -36,6 +42,8 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
             } else if board.isFull {
                 gameState = .cat
             } else {
+                // (condition) ? ifTure : ifFalse
+                // if activeMark is x ? newPlayer is .o : newPlayer is .x
                 let newPlayer = player == .x ? GameBoard.Mark.o : GameBoard.Mark.x
                 gameState = .active(newPlayer)
             }

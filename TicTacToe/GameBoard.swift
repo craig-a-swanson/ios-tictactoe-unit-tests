@@ -43,7 +43,8 @@ struct GameBoard {
     }
     
     mutating func place(mark: Mark, on square: Coordinate) throws {
-        if self[square] != nil {
+        let isSquareEmpty = self[square] == nil
+        guard isSquareEmpty else {
             throw GameBoardError.invalidSquare
         }
         squares[arrayIndex(for: square)] = .filled(mark)
