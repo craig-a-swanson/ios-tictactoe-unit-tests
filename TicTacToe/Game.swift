@@ -12,16 +12,16 @@ struct Game {
     
     // MARK: - Properties
     // activePlayer is either x or y or nil (if the game is over)
-    internal var activePlayer: GameBoard.Mark?
+    internal var activePlayer: GameBoard.Mark? = .x
     
     // gameIsOver returns true if a win or cat state if found, false if game is still active
-    internal var gameIsOver: Bool
+    internal var gameIsOver: Bool = false
     
     // winningPlayer returns the winning player if there was one, or nil otherwise
-    internal var winningPlayer: GameBoard.Mark?
+    internal var winningPlayer: GameBoard.Mark? = nil
     
     // board is modified by Game as the game progresses but is externally read-only
-    private(set) var board: GameBoard
+    private(set) var board = GameBoard()
     
     
     // MARK: - Methods
