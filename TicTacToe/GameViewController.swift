@@ -10,11 +10,6 @@ import UIKit
 
 class GameViewController: UIViewController, BoardViewControllerDelegate {
     
-//    private enum GameState {
-//        case active(GameBoard.Mark) // Active player
-//        case cat
-//        case won(GameBoard.Mark) // Winning player
-//    }
     
     // MARK: - Properties
     private var boardViewController: BoardViewController! {
@@ -33,33 +28,25 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
             boardViewController.board = game.board
         }
     }
-    
-    
-//    private var gameState = GameState.active(.x) {
-//        didSet {
-//            updateViews()
-//        }
-//    }
-    
-//    private var board = GameBoard() {
-//        didSet {
-//            boardViewController.board = board
-//        }
-//    }
+
     
     // MARK: - Outlets
     @IBOutlet weak var statusLabel: UILabel!
     
+    
+    // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateViews()
     }
     
+    
     // MARK: - Actions
     @IBAction func restartGame(_ sender: Any) {
         game.restart()
     }
+    
     
     // MARK: - Private
     private func updateViews() {
@@ -76,14 +63,7 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
             statusLabel.text = "Player \(activePlayer.stringValue)'s turn."
         }
     }
-//        switch gameState {
-//        case let .active(player):
-//            statusLabel.text = "Player \(player.stringValue)'s turn"
-//        case .cat:
-//            statusLabel.text = "Cat's game!"
-//        case let .won(player):
-//            statusLabel.text = "Player \(player.stringValue) won!"
-//        }
+
     
     // MARK: - Navigation
     
@@ -100,25 +80,9 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
             NSLog("Game is over")
             return
         }
-//        guard case let GameState.active(player) = gameState else {
-//        }
-        
         do {
-            // if the game is active, let the player put down their mark
-            // after the mark is down, check to see if that player won the game
-            // if they did not win the game, check to see if the board is full (cat result)
-            // otherwise, switch to the next player
-            
             try game.makeMark(at: coordinate)
-//            try board.place(mark: player, on: coordinate)
-//            if game(board: board, isWonBy: player) {
-//                gameState = .won(player)
-//            } else if board.isFull {
-//                gameState = .cat
-//            } else {
-//                let newPlayer = player == .x ? GameBoard.Mark.o : GameBoard.Mark.x
-//                gameState = .active(newPlayer)
-//            }
+
         } catch {
             NSLog("Illegal move")
         }
