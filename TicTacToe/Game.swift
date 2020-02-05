@@ -28,10 +28,30 @@ struct Game {
     // restart the game to a fresh state with an empty board and player x starting
     mutating internal func restart() {
         
+        board = GameBoard()
+        activePlayer = .x
+        winningPlayer = nil
+        gameIsOver = false
+        
     }
     
     // add a mark for the currently active player at the given coordinate; update game state
     mutating internal func makeMark(at coordinate: Coordinate) throws {
+        guard let player = activePlayer else { return }
         
+        try board.place(mark: player, on: coordinate)
+        
+        if game(board: board, isWonBy: player) {
+        winningPlayer = player
+        gameIsOver = true
+        activePlayer = nil
+        } else if board.isFull {
+            winningPlayer = nil
+            gameIsOver = true
+            activePlayer = nil
+        } else {
+            let newPlayer = player == .x ? GameBoard.Mark.o : GameBoard.Mark.x
+            activePlayer = newPlayer
+        }
     }
 }
